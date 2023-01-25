@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway
+  branch: main
+site_url: https://romin.beta.gouv.fr
+publish_mode: editorial_workflow
+media_folder: "public/media/uploads"
+public_folder: "/media/uploads"
+locale: 'fr'
+collections:
+  - name: "fiches"
+    label: "Fiches"
+    label_singular: "Fiche"
+    description: "Lorem ipsum descriptum"
+    folder: "content/fiches"
+    extension: "md"
+    create: true
+    delete: false
+    slug: "{{slug}}"
+    identifier_field: "titre"
+    fields:
+      - {label: "Titre", name: "titre", widget: "string"}
+      - label: "Modalité"
+        name: "modalite"
+        widget: "select"
+        multiple: true
+        min: 0
+        required: false
+        options: ["Individuelle", "Collective", "Individuelle et collective"]
+      - label: "Facteurs de risque"
+        name: "facteurs_risques"
+        widget: "select"
+        required: false
+        options: [
+          "Attitudes & croyances favorisant la délinquance",
+          "Traits de personnalité antisociale",
+          "Entourage social facilitant la commission d’infraction",
+          "Absence de loisirs pro-sociaux",
+          "Problèmes familiaux/conjugaux",
+          "Problèmes d'ordre professionnel",
+          "Addictions (alcool, stupéfiants)"
+        ]
+      - label: "Facteurs protecteur"
+        name: "facteurs_protecteurs"
+        widget: "text"
+        required: false
+      - label: "Stades du changement"
+        name: "stades_changement"
+        widget: "select"
+        multiple: true
+        min: 0
+        required: false
+        options: [
+          "Précontemplation",
+          "Contemplation",
+          "Détermination",
+          "Action",
+          "Maintien et prévention de la rechute"
+        ]
+      - label: "Nombre de scéances"
+        name: "nb_sceances"
+        widget: "select"
+        required: false
+        options: ["1", "Entre 2 et 5", "Entre 6 et 10", "Plus de 10"]
+      - {label: "Création de la fiche", name: "cree_le", widget: "datetime", time_format: false, required: false}
+      - label: "Auteur·ice"
+        name: "auteur"
+        widget: "object"
+        summary: '{{fields.prenom}} {{fields.nom}}'
+        fields:
+          - {label: "Prénom", name: "prenom", widget: "string", required: false}
+          - {label: "Nom", name: "nom", widget: "string", required: false}
+          - {label: "Rôle / structure", name: "role", widget: "string", required: false}
+          - {label: "E-mail", name: "email", widget: "string", required: false}
+          - {label: "Compléments", name: "divers", widget: "text", required: false}
+      - {label: "Résumé", name: "resume", widget: "text", required: false}
+      - {label: "Précautions d'usage", name: "precautions", widget: "text", required: false}
+      - {label: "Contenu", name: "body", widget: "markdown", required: false}
+      - label: "Supports / Pièces jointes"
+        name: "supports"
+        widget: "list"
+        required: false
+        field: {label: "Fichier", name: "fichier", widget: "file"}
